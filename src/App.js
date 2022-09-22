@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navigation from "./routes/navigation/navigation.component";
+import Home from "./routes/home/home.component";
+import Favorite from "./routes/favorite/favorite.component";
+import NoPage from "./routes/no-page/no-page.component";
+import { FavoritesProvider } from "./contexts/favorites.context";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <FavoritesProvider>
+        <Routes>
+          <Route path="/" element={<Navigation />}>
+            <Route index element={<Home />} />
+            <Route path="/favorite" element={<Favorite />}/>
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </FavoritesProvider>
+    </BrowserRouter>
   );
 }
 
